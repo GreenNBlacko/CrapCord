@@ -1,0 +1,11 @@
+
+/CrapCord_Client/bin
+/CrapCord_Client/.idea
+/.idea
+/CrapCord_Client/obj
+/CrapCord_Entities/obj
+/CrapCord_Server/bin
+/CrapCord_Server/obj
+/CrapCord_Entities/bin
+/CrapCord_Services/bin
+/CrapCord_Services/obj

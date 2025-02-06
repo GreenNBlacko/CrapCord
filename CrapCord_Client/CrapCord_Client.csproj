@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>CrapCord_Client</RootNamespace>
+        <UserSecretsId>e4e65afc-798e-4935-bbf6-1d281152cc57</UserSecretsId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GtkSharp" Version="3.24.24.117-develop"/>
+        <PackageReference Include="ImGui.NET" Version="1.91.0.1"/>
+        <PackageReference Include="MathNet.Symbolics" Version="0.25.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
+        <PackageReference Include="Twizzle.ImPlot.NET" Version="1.89.4"/>
+        <PackageReference Include="Veldrid.SDL2" Version="4.9.0"/>
+        <PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0"/>
+        <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Shaders\HLSL\imgui-frag.hlsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Shaders\HLSL\imgui-vertex.hlsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\HLSL\imgui-frag.hlsl.bytes"/>
+        <EmbeddedResource Include="Shaders\HLSL\imgui-frag.hlsl.bytes">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\HLSL\imgui-vertex.hlsl.bytes"/>
+        <EmbeddedResource Include="Shaders\HLSL\imgui-vertex.hlsl.bytes">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Shaders\GLSL\imgui-frag.glsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Shaders\GLSL\imgui-vertex.glsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\GLSL\imgui-frag.glsl"/>
+        <None Remove="Shaders\GLSL\imgui-vertex.glsl"/>
+        <None Remove="Shaders\SPIR-V\generate-spirv.bat"/>
+        <EmbeddedResource Include="Shaders\SPIR-V\generate-spirv.bat">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\SPIR-V\imgui-frag.glsl"/>
+        <EmbeddedResource Include="Shaders\SPIR-V\imgui-frag.glsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\SPIR-V\imgui-frag.spv"/>
+        <EmbeddedResource Include="Shaders\SPIR-V\imgui-frag.spv">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\SPIR-V\imgui-vertex.glsl"/>
+        <EmbeddedResource Include="Shaders\SPIR-V\imgui-vertex.glsl">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\SPIR-V\imgui-vertex.spv"/>
+        <EmbeddedResource Include="Shaders\SPIR-V\imgui-vertex.spv">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\Metal\imgui-frag.metal"/>
+        <EmbeddedResource Include="Shaders\Metal\imgui-frag.metal">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\Metal\imgui-frag.metallib"/>
+        <EmbeddedResource Include="Shaders\Metal\imgui-frag.metallib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\Metal\imgui-vertex.metal"/>
+        <EmbeddedResource Include="Shaders\Metal\imgui-vertex.metal">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Shaders\Metal\imgui-vertex.metallib"/>
+        <EmbeddedResource Include="Shaders\Metal\imgui-vertex.metallib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CrapCord_Entities\CrapCord_Entities.csproj" />
+      <ProjectReference Include="..\CrapCord_Services\CrapCord_Services.csproj" />
+    </ItemGroup>
+
+</Project>

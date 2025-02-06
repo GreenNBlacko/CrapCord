@@ -1,0 +1,24 @@
+syntax = "proto3";
+package packetproto;
+
+option csharp_namespace = "Google.Protobuf.CrapCord.PacketToProto";
+
+message PacketProto {
+  enum PacketOpcode {
+      Register = 0;
+      Login = 1;
+      ViewRooms = 2;
+      FetchMessages = 3;
+      SendMessage = 4;
+      CreateRoom = 5;
+      JoinRoom = 6;
+      Response = 7;
+      KeyHandoff = 8;
+      Auth = 9;
+      Disconnect = 255;
+  }
+  PacketOpcode Opcode = 1;
+  string Timestamp = 2;
+  string Payload = 3;
+  string HMAC = 4;
+}
