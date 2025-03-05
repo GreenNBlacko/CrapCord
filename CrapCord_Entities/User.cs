@@ -6,5 +6,6 @@ public class User {
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
+    public string RSAKeyHash { get; set; }
     public List<Token> Tokens { get; set; }
 }

@@ -5,7 +5,7 @@ namespace CrapCord_Services;
 /// <summary>
 ///     Class to manage AES en/decryption
 /// </summary>
-class AESUtils {
+public class AESUtils {
     /// <summary>
     ///     Function to encrypt text using AES with the CBC algorithm
     /// </summary>

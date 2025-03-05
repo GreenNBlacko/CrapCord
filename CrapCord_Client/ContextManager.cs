@@ -12,12 +12,18 @@ public class ContextManager {
     public readonly TcpClient client;
     public readonly PacketSerializer Serializer;
     public readonly IConfigurationRoot config;
+    public readonly RSAUtils rsa;
+    public readonly AESUtils aes;
+    public readonly HardwareIdentifier hardwareInfo;
 
     public ContextManager() {
         config = new ConfigurationBuilder().AddUserSecrets<ContextManager>().AddEnvironmentVariables().Build();
         client = new TcpClient();
         Serializer = new PacketSerializer();
         client.Connect("127.0.0.1", int.Parse(config["SOCKET_PORT"] ?? throw new ArgumentNullException("Incorrectly setup config file! Add SOCKET_PORT to your user secrets/environment variables.")));
+        rsa = new();
+        aes = new();
+        hardwareInfo = new();
     }
 
     public void SetRenderer(Renderer _renderer) {

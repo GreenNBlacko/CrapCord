@@ -1,23 +1,25 @@
 ﻿using System.Diagnostics;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using CrapCord_Client.GUI.Menus;
-using CrapCord_Client.GUI.Menus.Message;
+using CrapCord_Entities;
 using ImGuiNET;
 using Veldrid;
 using Veldrid.Sdl2;
 using Veldrid.StartupUtilities;
+using Message = CrapCord_Client.GUI.Menus.Message.Message;
 
 namespace CrapCord_Client.GUI;
 
 public class Renderer {
-    private static Sdl2Window _window;
-    private static GraphicsDevice _gd;
-    private static CommandList _cl;
-    private static ImGuiController _controller;
-    private static Vector3 _clearColor = new Vector3(0.45f, 0.55f, 0.6f);
+    private Sdl2Window _window;
+    private GraphicsDevice _gd;
+    private CommandList _cl;
+    private ImGuiController _controller;
+    private Vector3 _clearColor = new Vector3(0.45f, 0.55f, 0.6f);
 
     delegate void SetClipboardTextDelegate(IntPtr userData, string text);
 
@@ -125,7 +127,6 @@ public class Renderer {
         ctx = _ctx;
         ctx.SetRenderer(this);
 
-        // Create window, GraphicsDevice, and all resources necessary for the demo.
         VeldridStartup.CreateWindowAndGraphicsDevice(
             new WindowCreateInfo(50, 50, 1280, 720, WindowState.Normal, $"CrapCord v{ctx.config["CLIENT_VERSION"]}"),
             new GraphicsDeviceOptions(true, null, true, ResourceBindingModel.Improved, true, true),
@@ -138,7 +139,22 @@ public class Renderer {
         };
 
         _window.Closing += () => {
-            Process.GetCurrentProcess().Kill();
+            if (!ctx.client.Connected) return;
+            try {
+                NetworkStream stream = ctx.client.GetStream();
+                var packet = new Packet(Packet.PacketOpcode.Disconnect, DateTime.Now, "Goodbye, world!", "");
+
+                var data = ctx.Serializer.Serialize(packet);
+                stream.Write(data, 0, data.Length);
+
+                ctx.client.Close();
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error during disconnect: {ex.Message}");
+            }
+            finally {
+                Process.GetCurrentProcess().Kill();
+            }
         };
 
         _cl = _gd.ResourceFactory.CreateCommandList();
@@ -200,6 +216,10 @@ public class Renderer {
         LoadMenu(0);
 
         message = null;
+    }
+
+    public void Close() {
+        _window.Close();
     }
 
     static void SetClipboardText(IntPtr userData, string text) {

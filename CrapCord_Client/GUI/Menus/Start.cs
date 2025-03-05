@@ -11,13 +11,13 @@ public class Start(ContextManager ctx) : Menu(ctx) {
         ImGui.SeparatorText("CrapCord");
         
         if (GUI.FullWidthButton("Register"))
-            return;
+            ctx.renderer.LoadMenu(e_Menus.Register);
         
         if (GUI.FullWidthButton("Log in"))
-            return;
+            ctx.renderer.LoadMenu(e_Menus.Login);
         
         if (GUI.FullWidthButton("Quit"))
-            Environment.Exit(0);
+            ctx.renderer.Close();
     }
 
     public override float GetMenuHeight() {
